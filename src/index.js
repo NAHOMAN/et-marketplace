@@ -1,12 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
-import "./index.css"; // Tailwind CSS
+import "./index.css"; // Import Tailwind CSS
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <BrowserRouter>
+ReactDOM.render(
+  <Router>
     <App />
-  </BrowserRouter>
+  </Router>,
+  document.getElementById("root")
 );
