@@ -1,10 +1,23 @@
-import React from "react";
+import React from 'react';
+import ProductCard from '../components/ProductCard';
+
+const products = [
+  { id: 1, name: 'Product 1', price: 10, image: 'https://via.placeholder.com/150' },
+  { id: 2, name: 'Product 2', price: 20, image: 'https://via.placeholder.com/150' },
+  { id: 3, name: 'Product 3', price: 30, image: 'https://via.placeholder.com/150' },
+];
 
 const Shop = () => {
   return (
-    <div className="container mx-auto py-20">
-      <h1 className="text-3xl font-bold text-center">Shop Products</h1>
-      <p className="text-center text-gray-600 mt-4">Browse our latest products.</p>
+    <div className="container mt-5">
+      <h1>Shop</h1>
+      <div className="row">
+        {products.map((product) => (
+          <div key={product.id} className="col-md-4 mb-4">
+            <ProductCard product={product} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
