@@ -9,13 +9,11 @@ const products = [
 
 const Shop = () => {
   return (
-    <div className="container mt-5">
-      <h1>Shop</h1>
-      <div className="row">
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Shop</h1>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {products.map((product) => (
-          <div key={product.id} className="col-md-4 mb-4">
-            <ProductCard product={product} />
-          </div>
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </div>

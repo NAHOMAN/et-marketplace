@@ -13,12 +13,14 @@ const ProductDetails = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <h1>{product.name}</h1>
-      <img src={product.image} alt={product.name} className="img-fluid" />
-      <p>Price: ${product.price}</p>
-      <p>Product ID: {id}</p> {/* Use the `id` variable here */}
-      <button className="btn btn-primary">Add to Cart</button>
+    <div className="p-4">
+      <h1 className="text-2xl font-bold">{product.name}</h1>
+      <img src={product.image} alt={product.name} className="my-4 w-full h-64 object-cover" />
+      <p className="text-gray-700">Price: ${product.price}</p>
+      <p className="text-gray-700">Product ID: {id}</p> {/* Use the `id` variable here */}
+      <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+        Add to Cart
+      </button>
     </div>
   );
 };
