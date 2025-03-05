@@ -1,83 +1,67 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom"; // For navigation after signup
-import { auth } from "../firebase/firebaseConfig"; // Import Firebase auth
-import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js"; // Firebase Auth method
-import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext"; // Assuming AuthContext is setup for managing auth state
+import React, { useState } from 'react';
+import { auth } from '../firebase/firebaseConfig';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { useAuth } from '../context/AuthContext'; // Assuming useAuth context is set up
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
-  const { setUser } = useContext(AuthContext); // Using context to store user
-  const history = useHistory(); // To navigate after successful signup
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const { login } = useAuth(); // Assuming login function from context to store user
+  const navigate = useNavigate();
 
-  // Local state for form inputs
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); // Error handling
-
-  // Handle form submission
-  const handleSubmit = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-    setError(""); // Clear any previous errors
+    setError(''); // Clear previous error
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-      
-      // Set user state in AuthContext
-      setUser(user);
-
-      // Redirect to home page or dashboard after successful signup
-      history.push("/");
-
-    } catch (err) {
-      setError(err.message); // Set error message if signup fails
+      login(userCredential.user);  // Login user and store in context
+      navigate('/');  // Redirect to home/dashboard page after successful signup
+    } catch (error) {
+      setError(error.message);  // Display error message if signup fails
     }
   };
 
   return (
-    <div className="max-w-md mx-auto my-8 p-6 bg-white border rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold text-center mb-4">Create an Account</h2>
-      
-      {/* Error message */}
-      {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <div className="bg-white p-6 rounded-lg shadow-md w-96">
+        <h2 className="text-2xl font-bold text-center">Sign Up</h2>
+        
+        {/* Display error message if any */}
+        {error && <p className="text-red-500 text-center mb-3">{error}</p>}
 
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+        <form onSubmit={handleSignup} className="mt-4">
           <input
             type="email"
-            id="email"
+            placeholder="Email"
+            className="w-full p-3 border rounded-md mb-3"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             required
           />
-        </div>
-
-        <div className="mb-6">
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
           <input
             type="password"
-            id="password"
+            placeholder="Password"
+            className="w-full p-3 border rounded-md mb-3"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             required
-            minLength={6}
+            minLength={6} // Enforce password length for security
           />
-        </div>
+          <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-md">
+            Sign Up
+          </button>
+        </form>
 
-        <button type="submit" className="w-full py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
-          Sign Up
-        </button>
-      </form>
-
-      <p className="mt-4 text-center text-sm text-gray-500">
-        Already have an account?{" "}
-        <a href="/login" className="text-indigo-600 hover:text-indigo-700">
-          Login here
-        </a>
-      </p>
+        <p className="mt-4 text-center text-sm text-gray-500">
+          Already have an account?{" "}
+          <a href="/login" className="text-indigo-600 hover:text-indigo-700">
+            Login here
+          </a>
+        </p>
+      </div>
     </div>
   );
 };

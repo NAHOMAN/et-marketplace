@@ -1,10 +1,10 @@
-// src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Products from './pages/Products';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
+import Signup from './pages/Signup';  // Make sure Signup is imported
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { AuthProvider } from './context/AuthContext';
@@ -21,6 +21,7 @@ const App = () => {
             <Route path="/products" element={<Products />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />  {/* Corrected Route for signup */}
           </Routes>
           <Footer />
         </Router>
