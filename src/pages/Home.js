@@ -6,7 +6,7 @@ const Home = () => {
       {/* Hero Section */}
       <section className="bg-blue-600 text-white text-center py-20 px-6">
       <img 
-  src="ET-ecommerce-project.jpg"  
+  src="ET-ecommerce-project.webp"  
   alt="ET Marketplace Hero"
   className="w-full h-96 object-cover object-center rounded-lg"
 />
